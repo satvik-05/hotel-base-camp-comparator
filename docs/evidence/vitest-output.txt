@@ -5,64 +5,33 @@
 
  RUN  v5.0.5 /Users/sakethjangala/Documents/Projects/hotel-base-camp-comparator
 
- ✓ src/engine/calculate.test.ts > contribution arithmetic (spec illustration) > multiplies importance by minutes 2ms
- ✓ src/engine/calculate.test.ts > contribution arithmetic (spec illustration) > sums to 140 importance-minutes with 28.0 average 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 1 / importance 4 -> 0.3 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 21 / importance 20 -> 1.1 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 1 / importance 8 -> 0.1 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 3 / importance 8 -> 0.4 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 0 / importance 7 -> 0.0 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 140 / importance 5 -> 28.0 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 1712 / importance 41 -> 41.8 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 99 / importance 10 -> 9.9 0ms
- ✓ src/engine/calculate.test.ts > round-half-up display > total 995 / importance 100 -> 10.0 0ms
- ✓ src/engine/rank.test.ts > budget equality > a hotel exactly on budget is affordable and can win 8ms
- ✓ src/engine/rank.test.ts > budget equality > one unit over budget is unranked, labelled, and never recommended 0ms
+ ✓ src/theme.test.ts > theme helpers > resolves explicit prefs directly and system by the OS flag 1ms
+ ✓ src/theme.test.ts > theme helpers > validates stored values 0ms
+ ✓ src/theme.test.ts > theme helpers > reads and writes the preference, defaulting to system for missing or garbage values 0ms
+ ✓ src/theme.test.ts > theme helpers > never throws when storage is unavailable 1ms
+ ✓ src/theme.test.ts > theme helpers > applyTheme sets the data-theme attribute used by the CSS 1ms
+ ✓ src/theme.test.ts > theme helpers > tolerates environments without matchMedia 0ms
+ ✓ src/engine/rank.test.ts > budget equality > a hotel exactly on budget is affordable and can win 13ms
+ ✓ src/engine/rank.test.ts > budget equality > one unit over budget is unranked, labelled, and never recommended 1ms
  ✓ src/engine/rank.test.ts > budget equality > crossing the boundary makes the better hotel recommended 0ms
  ✓ src/engine/rank.test.ts > ranking rules > ranks by exact total even when rounded averages display identically 0ms
  ✓ src/engine/rank.test.ts > ranking rules > accessibility tie is resolved by lower stay cost 0ms
  ✓ src/engine/rank.test.ts > ranking rules > complete tie is resolved by hotel ID in ASCII order, regardless of input order 0ms
  ✓ src/engine/rank.test.ts > ranking rules > names and input order never break ties 0ms
- ✓ src/engine/rank.test.ts > ranking rules > assigns unique gapless ranks and exactly one Recommended 0ms
+ ✓ src/engine/rank.test.ts > ranking rules > assigns unique gapless ranks and exactly one Recommended 1ms
  ✓ src/engine/rank.test.ts > ranking rules > keeps evaluations in input order while ranking separately 0ms
  ✓ src/engine/rank.test.ts > ranking rules > computes totals, averages, longest trip, and remaining budget 0ms
  ✓ src/engine/rank.test.ts > NO_AFFORDABLE_HOTEL > is a valid ok result with no winner or ranks, and shortfalls retained 0ms
  ✓ src/engine/rank.test.ts > NO_AFFORDABLE_HOTEL > budget 0 is valid and nothing is affordable 0ms
  ✓ src/engine/rank.test.ts > NO_AFFORDABLE_HOTEL > moving the budget up leaves no stale state either way 0ms
- ✓ src/engine/rank.test.ts > budget vs importance changes > budget change alone keeps every contribution identical 0ms
+ ✓ src/engine/rank.test.ts > budget vs importance changes > budget change alone keeps every contribution identical 1ms
  ✓ src/engine/rank.test.ts > budget vs importance changes > importance change recomputes contributions, totals, averages and ranks 0ms
  ✓ src/engine/rank.test.ts > budget vs importance changes > withImportance does not mutate the original scenario 0ms
  ✓ src/engine/rank.test.ts > budget vs importance changes > out-of-range importance becomes an invalid result 0ms
- ✓ src/data/mainCity.test.ts > main city shape > has exactly 10 hotels and 15 places and validates 1ms
- ✓ src/data/mainCity.test.ts > main city shape > has >=3 attractions, >=3 food stops, >=3 importance values 0ms
- ✓ src/data/mainCity.test.ts > main city shape > has a complete 10x15 matrix matching the place order 1ms
- ✓ src/data/mainCity.test.ts > main city shape > positions all 25 markers distinctly inside the 1000x640 map 0ms
- ✓ src/data/mainCity.test.ts > main city shape > is deterministic: every call materializes an identical, frozen scenario 0ms
- ✓ src/data/mainCity.test.ts > main city shape > engine code never touches marker geometry or city data 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > uses the documented budget and importance total 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_DOCKS total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_MOSSLN total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_TRAMDEP total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_LANTERN total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_WILLOW total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_RIVERST total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_CLOCKGR total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_OPAL total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_MARIGOLD total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_SKYLINE total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > matches the documented rank order 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > 4-7 hotels are initially affordable 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > the unique most accessible hotel is over budget 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > the recommendation is not the cheapest affordable hotel 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > affordable hotels fall on both sides of the 90-minute longest-trip line 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > raising the budget to the accessible hotel cost recommends it, exactly at the boundary 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > changing the what-if importance changes the recommended hotel (and only that place alone does) 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > reset: a fresh scenario at the original budget reproduces the original result exactly 1ms
- ✓ src/data/mainCity.test.ts > anti-circularity > no non-test source file imports data/expected 2ms
- ✓ src/engine/validate.test.ts > validateBudget > accepts 0 1ms
+ ✓ src/engine/validate.test.ts > validateBudget > accepts 0 3ms
  ✓ src/engine/validate.test.ts > validateBudget > accepts 1 0ms
  ✓ src/engine/validate.test.ts > validateBudget > accepts 1000000 0ms
- ✓ src/engine/validate.test.ts > validateBudget > rejects -1 8ms
+ ✓ src/engine/validate.test.ts > validateBudget > rejects -1 10ms
  ✓ src/engine/validate.test.ts > validateBudget > rejects 1000001 0ms
  ✓ src/engine/validate.test.ts > validateBudget > rejects 1.5 0ms
  ✓ src/engine/validate.test.ts > validateBudget > rejects NaN 0ms
@@ -121,10 +90,10 @@
  ✓ src/engine/validate.test.ts > invalid-state clearing > invalid budget NaN yields only errors 0ms
  ✓ src/engine/validate.test.ts > invalid-state clearing > invalid importance yields only errors 0ms
  ✓ src/engine/validate.test.ts > invalid-state clearing > reports every error found, each with a path 0ms
- ✓ src/state/reducer.test.ts > reducer > starts empty and ignores edits until LOAD 1ms
+ ✓ src/state/reducer.test.ts > reducer > starts empty and ignores edits until LOAD 3ms
  ✓ src/state/reducer.test.ts > reducer > parseWhole is strict 0ms
- ✓ src/state/reducer.test.ts > reducer > inspecting changes only the inspected id, never the result 12ms
- ✓ src/state/reducer.test.ts > reducer > budget and importance edits flow through the engine 1ms
+ ✓ src/state/reducer.test.ts > reducer > inspecting changes only the inspected id, never the result 13ms
+ ✓ src/state/reducer.test.ts > reducer > budget and importance edits flow through the engine 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid budget "-1" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid budget "1000001" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid budget "abc" clears everything derived 0ms
@@ -132,25 +101,68 @@
  ✓ src/state/reducer.test.ts > reducer > invalid importance "0" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid importance "6" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid importance "x" clears everything derived 0ms
- ✓ src/state/reducer.test.ts > reducer > RESET restores budget, importances and inspected hotel exactly 1ms
- ✓ src/state/reducer.test.ts > reducer > over-budget inspected hotel exposes what happens at its own cost 1ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > small scenario: none, then each improvement at exactly the stay cost 8ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > merges costs that do not change the recommendation 0ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > agrees with compare() at every budget in the main city (boundaries included) 103ms
+ ✓ src/state/reducer.test.ts > reducer > RESET restores budget, importances and inspected hotel exactly 0ms
+ ✓ src/state/reducer.test.ts > reducer > over-budget inspected hotel exposes what happens at its own cost 0ms
+ ✓ src/data/mainCity.test.ts > main city shape > has exactly 10 hotels and 15 places and validates 3ms
+ ✓ src/data/mainCity.test.ts > main city shape > has >=3 attractions, >=3 food stops, >=3 importance values 0ms
+ ✓ src/data/mainCity.test.ts > main city shape > has a complete 10x15 matrix matching the place order 1ms
+ ✓ src/data/mainCity.test.ts > main city shape > positions all 25 markers distinctly inside the 1000x640 map 0ms
+ ✓ src/data/mainCity.test.ts > main city shape > is deterministic: every call materializes an identical, frozen scenario 1ms
+ ✓ src/data/mainCity.test.ts > main city shape > engine code never touches marker geometry or city data 1ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > uses the documented budget and importance total 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_DOCKS total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_MOSSLN total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_TRAMDEP total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_LANTERN total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_WILLOW total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_RIVERST total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_CLOCKGR total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_OPAL total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_MARIGOLD total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_SKYLINE total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > matches the documented rank order 0ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > 4-7 hotels are initially affordable 0ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > the unique most accessible hotel is over budget 0ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > the recommendation is not the cheapest affordable hotel 0ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > affordable hotels fall on both sides of the 90-minute longest-trip line 0ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > raising the budget to the accessible hotel cost recommends it, exactly at the boundary 1ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > changing the what-if importance changes the recommended hotel (and only that place alone does) 0ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > reset: a fresh scenario at the original budget reproduces the original result exactly 1ms
+ ✓ src/data/mainCity.test.ts > anti-circularity > no non-test source file imports data/expected 2ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > small scenario: none, then each improvement at exactly the stay cost 9ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > merges costs that do not change the recommendation 1ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > agrees with compare() at every budget in the main city (boundaries included) 112ms
  ✓ src/engine/timeline.test.ts > budgetTimeline > main city ends with Clocktower Grand exactly at its stay cost 1ms
  ✓ src/engine/timeline.test.ts > budgetTimeline > returns nothing for an invalid scenario 0ms
- ✓ src/App.test.tsx > App smoke > loads in one action and shows 25 markers with 15 links for the inspected hotel only 116ms
- ✓ src/App.test.tsx > App smoke > shows Over budget label, then recommends the accessible hotel at its price 118ms
- ✓ src/App.test.tsx > App smoke > invalid budget clears ranks, recommendation and links 78ms
- ✓ src/App.test.tsx > App smoke > budget 0 shows NO_AFFORDABLE_HOTEL without a winner 71ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > offers Light, Dark and System, defaulting to System 49ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > System follows the OS, live 6ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > explicit Dark/Light override the OS and persist 29ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > restores the saved preference on the next visit 4ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > supports arrow-key navigation with a roving tabindex 19ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > does not affect the comparison result 89ms
+ ✓ src/App.test.tsx > App smoke > loads in one action and shows 25 markers with 15 links for the inspected hotel only 131ms
+ ✓ src/engine/calculate.test.ts > contribution arithmetic (spec illustration) > multiplies importance by minutes 1ms
+ ✓ src/engine/calculate.test.ts > contribution arithmetic (spec illustration) > sums to 140 importance-minutes with 28.0 average 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 1 / importance 4 -> 0.3 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 21 / importance 20 -> 1.1 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 1 / importance 8 -> 0.1 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 3 / importance 8 -> 0.4 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 0 / importance 7 -> 0.0 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 140 / importance 5 -> 28.0 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 1712 / importance 41 -> 41.8 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 99 / importance 10 -> 9.9 0ms
+ ✓ src/engine/calculate.test.ts > round-half-up display > total 995 / importance 100 -> 10.0 0ms
+ ✓ src/App.test.tsx > App smoke > shows Over budget label, then recommends the accessible hotel at its price 128ms
+ ✓ src/App.test.tsx > App smoke > invalid budget clears ranks, recommendation and links 79ms
+ ✓ src/App.test.tsx > App smoke > budget 0 shows NO_AFFORDABLE_HOTEL without a winner 68ms
  ✓ src/App.test.tsx > App smoke > Riverside Walk what-if changes the recommendation and Reset restores it 113ms
- ✓ src/App.test.tsx > App smoke > timeline steps set the budget and mark the current range 57ms
- ✓ src/App.test.tsx > App smoke > inspecting a hotel by keyboard moves the links but not the result 44ms
- ✓ src/a11y.test.tsx > accessibility (axe) > has no violations on the landing screen, the loaded workspace, and invalid/no-affordable states 669ms
- ✓ src/a11y.test.tsx > accessibility (axe) > communicates state with text or symbols, not colour alone 47ms
+ ✓ src/App.test.tsx > App smoke > timeline steps set the budget and mark the current range 64ms
+ ✓ src/App.test.tsx > App smoke > inspecting a hotel by keyboard moves the links but not the result 58ms
+ ✓ src/a11y.test.tsx > accessibility (axe) > has no violations on the landing screen, the loaded workspace, and invalid/no-affordable states 693ms
+ ✓ src/a11y.test.tsx > accessibility (axe) > communicates state with text or symbols, not colour alone 49ms
 
- Test Files  8 passed (8)
-      Tests  143 passed (143)
-   Start at  15:53:18
-   Duration  1.52s (environment 58%, tests 24%, setup 9%, import 5%, transform 3%, worker 1%)
+ Test Files  10 passed (10)
+      Tests  155 passed (155)
+   Start at  17:21:27
+   Duration  1.46s (environment 53%, tests 26%, setup 8%, import 7%, transform 4%, worker 1%)
 

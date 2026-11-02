@@ -14,7 +14,7 @@ travel total to 15 wishlist places under one whole-stay budget. Spec: SPR26_D2_P
 - `src/engine/` — pure, framework-free calculation, validation, ranking and `timeline.ts` (budget→recommendation steps). No React, no DOM, no randomness, no imports from `data/`.
 - `src/data/` — fictional city. `mainCity.ts` + `travelMatrix.ts` are inputs; `expected.ts` holds documented answers.
 - `src/state/` — `reducer.ts` holds raw input strings + inspected hotel; `derive.ts` computes the view (results are never stored). UI-only state never enters the engine.
-- `src/components/` — presentation. Tailwind utilities, lucide-react icons.
+- `src/components/` — presentation. Tailwind utilities, lucide-react icons. Theme tokens + dark mode live in `src/index.css` (scale remap under `:root[data-theme="dark"]`, set by `src/theme.ts` / `useTheme`; keep the inline script in `index.html` in sync); use `card`/`bg-surface`, not hard-coded white. Never bulk-rename `slate-`/`zinc-` with a plain string replace (it corrupts `translate-`).
 
 ## Invariants (do not break)
 1. Rank by exact integer `weighted_travel_total` asc, then `stay_cost` asc, then hotel ID (ASCII) asc. Never rank on the rounded average.

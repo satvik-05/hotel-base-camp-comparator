@@ -6,13 +6,13 @@ Generated at the end of Step 5. Raw logs: [vitest-output.txt](evidence/vitest-ou
 ## 1. Final gate (all green)
 | Command | Result |
 |---|---|
-| `npm test` | **8 files, 143 tests passed** |
+| `npm test` | **10 files, 155 tests passed** |
 | `npm run lint` (`tsc -b --noEmit`, strict) | no errors |
 | `npm run build` | succeeds (type-check + Vite production build) |
 | `python3 scripts/verify_expected.py` | `OK: all documented answers match the independent calculation` |
 
 Tests per file: validate 62 · mainCity (data + story + anti-circularity) 26 · rank 17 · reducer/state 13 ·
-calculate 11 · App (full-app) 7 · timeline 5 · a11y (axe) 2.
+calculate 11 · App (full-app) 7 · theme helpers 6 · theme switcher 6 · timeline 5 · a11y (axe) 2.
 
 ## 2. Independent calculation parity (`expected.ts` vs a second path)
 `scripts/verify_expected.py` re-declares costs, importances and place order on its own, reads only the raw
@@ -76,11 +76,33 @@ imports `expected.ts`. Main scenario at budget 900 (importance total 41):
 | `07-no-affordable-hotel.png` | `NO_AFFORDABLE_HOTEL` at budget 0 |
 | `08-invalid-importance-cleared.png` | Invalid importance clears derived state |
 | `09-mobile-390px.png` | Responsive layout at phone width |
+| `10-dark-theme.png` / `11-light-theme.png` | Premium redesign in both themes |
+| `12-theme-switcher-dark.png` / `13-theme-switcher-light.png` | Header theme switcher (Light · Dark · System) with each mode selected |
 
-## 6. Accessibility pass
+01–09 and 11 are taken in forced light mode; 10 and 12 in dark mode.
+
+## 6. Visual redesign check (Linear/Vercel-style pass)
+Presentation-only change: `git status` shows no edits under `src/engine`, `src/data`, `src/state`, any `*.test.*` file or `scripts/`. After the redesign: 143/143 tests, lint, build and the Python verifier are green. Browser check in light and dark found two defects, both fixed: the `$` prefix of the budget box was misplaced (a bulk rename had turned `-translate-y-1/2` into `-tranzinc-y-1/2`, found by measuring the element boxes), and long hotel names were clipped by the badges.
+
+## 7. Theme switcher (Light · Dark · System)
+- `src/theme.ts` (pure helpers), `src/state/useTheme.ts` (hook), `src/components/ThemeSwitcher.tsx` (header control).
+- The choice is stored in `localStorage` (`theme-pref`) and applied as `<html data-theme>`. System follows the OS live.
+- **No flash:** an inline script in `index.html` sets `data-theme` before first paint. Verified in headless Chrome for four
+  OS/saved-preference combinations (OS light + saved dark, OS dark + saved light, and no saved value under each OS): the
+  attribute only ever takes its final value and never flips.
+- Browser walkthrough: click Dark → dark; reload keeps dark; click Light → light; System tracks the OS flipping to dark.
+- Robust to private mode: storage read/write failures are caught (tested); the preference then just does not persist.
+- Keyboard: it is a radiogroup with roving tabindex; arrow keys move and select. axe reports no violations with it present.
+- Tests: `theme.test.ts` (6) and `ThemeSwitcher.test.tsx` (6) cover defaults, live OS changes, explicit override and persistence,
+  restore on next visit, arrow keys, and that switching theme never changes a comparison result.
+
+## 8. Accessibility pass
 - axe-core (jsdom): zero violations in 4 states. It caught one real defect (unlabelled SVG group), fixed with `role="group"`.
 - State is never colour-only: ★ Recommended, rank numbers, "Affordable", ✕ + dashed outline + "Over budget by $X"; attractions are circles and food stops are diamonds, and both are named in table rows (`sr-only`) and map `<title>`s.
 - Keyboard: every control is a native button/input; map hotels are focusable and activate on Enter/Space; hotel cards and table headers are toggle buttons (`aria-pressed`); the current timeline step has `aria-current`; errors use `role="alert"`.
-- Contrast (WCAG, computed): body 17.9:1, muted text 4.76–7.58:1, badges 5.5–8.2:1, map labels 5.7–9.0:1. The Recommended badge measured 3.77:1 (white on emerald-600), so it was darkened to emerald-700 (5.48:1).
+- Contrast (WCAG, computed by script from the actual token values), after the visual redesign:
+  - Light: Recommended pill 4.99:1, Affordable 6.56:1, Over-budget 5.52:1, banner text 8.09:1, muted text 4.83:1, white on indigo-600 6.29:1.
+  - Dark: Recommended pill 10.08:1, Affordable 12.09:1, Over-budget 8.51:1, banner text 15.66:1, muted text 6.91:1, body 16.12:1.
+  - History: the original solid Recommended badge measured 3.77:1 and was fixed before the redesign.
 - `prefers-reduced-motion` disables transitions.
 - Known limits: axe cannot check contrast or layout in jsdom, so contrast was computed by script, not measured in a browser; no screen-reader run was done.

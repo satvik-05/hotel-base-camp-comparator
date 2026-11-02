@@ -66,6 +66,20 @@ The matrix is hand-authored constants; no geometry or randomness is used.
 affordability can change), merging adjacent equal recommendations. Because it calls the same engine it cannot
 drift from the main rules; a test checks it against `compare()` at every integer budget from 0 to 1400.
 
+## Visual system (premium SaaS look)
+- **Tokens, not per-component dark classes.** `src/index.css` defines a `surface` colour plus map ink/grid/river tokens, and a dark
+  theme under `:root[data-theme="dark"]` that remaps the Tailwind scale variables (50↔950, 100↔900, 200↔800, 300↔700, text-muted lifted).
+  Components therefore use one set of utilities and still get a correct dark theme; accent mid-tones (400–600) are shared.
+- **Surfaces:** a `card` utility (`rounded-xl`, 1px zinc border, `shadow-sm`, hover `shadow-md`).
+- **Header:** sticky frosted command bar (`backdrop-blur-md`, translucent surface, subtle border, gradient logo, "runs locally" chip).
+- **Badges / status:** tinted pills (`bg-*-500/10`, matching dark-text, `ring-1`, soft glow for Recommended); banners use the same tints.
+- **Controls:** custom range slider (filled track via a CSS variable, round thumb, hover/active/focus feedback) and a segmented 1–5 control.
+- **Map:** SVG ink, halo, grid and river colours come from CSS variables, so the map follows the theme. Colour is still paired with shape/text.
+- **Theme switching:** Light / Dark / System via a header radiogroup. `useTheme` stores the preference in `localStorage` and sets
+  `data-theme`; System tracks `prefers-color-scheme` live. An inline script in `index.html` applies the saved theme before first
+  paint so there is no flash. Theme state is independent of the comparison state and cannot affect results.
+- The redesign changed presentation only; the theme feature added UI-only modules and no engine or data code.
+
 ## Accessibility & UX
 Table = accessible equivalent of the map (all 150 times, importance inputs, status row). Colour is always paired
 with text or a symbol. See `EVIDENCE.md` §6 for the audit and its limits.

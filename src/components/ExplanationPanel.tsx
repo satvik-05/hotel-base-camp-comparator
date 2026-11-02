@@ -7,9 +7,9 @@ export function ExplanationPanel({ view }: { view: ComparatorView }) {
 
   if (result.status === 'invalid' || !inspected) {
     return (
-      <section aria-labelledby="explain-title" className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 id="explain-title" className="text-base font-semibold text-slate-900">Why this hotel?</h2>
-        <p className="mt-2 text-sm text-slate-600">Explanation cleared — there is no valid calculation to explain.</p>
+      <section aria-labelledby="explain-title" className="card p-5">
+        <h2 id="explain-title" className="text-base font-semibold text-zinc-900">Why this hotel?</h2>
+        <p className="mt-2 text-sm text-zinc-600">Explanation cleared — there is no valid calculation to explain.</p>
       </section>
     );
   }
@@ -61,18 +61,18 @@ export function ExplanationPanel({ view }: { view: ComparatorView }) {
   }
 
   return (
-    <section aria-labelledby="explain-title" className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <h2 id="explain-title" className="text-base font-semibold text-slate-900">
+    <section aria-labelledby="explain-title" className="card p-5">
+      <h2 id="explain-title" className="text-base font-semibold text-zinc-900">
         Why {inspected.name}?
       </h2>
-      <ul className="mt-2 space-y-1 text-sm text-slate-700">
+      <ul className="mt-2 space-y-1 text-sm text-zinc-700">
         {story.map((s, i) => (
           <li key={i}>{s}</li>
         ))}
       </ul>
 
-      <div className="mt-4 rounded-xl bg-slate-50 p-3 text-sm text-slate-700 ring-1 ring-slate-200">
-        <p className="font-medium text-slate-900">The calculation</p>
+      <div className="mt-4 rounded-lg bg-zinc-500/5 p-3 text-sm text-zinc-700 ring-1 ring-zinc-500/20">
+        <p className="font-medium text-zinc-900">The calculation</p>
         <p className="mt-1 tabular-nums">
           Σ (importance × round-trip minutes) = <strong>{num(inspected.weightedTravelTotal)}</strong> importance-minutes
         </p>
@@ -82,10 +82,10 @@ export function ExplanationPanel({ view }: { view: ComparatorView }) {
         <p className="tabular-nums">
           Budget {money(result.budget)} − stay {money(inspected.stayCost)} = {money(inspected.remainingBudget)} remaining
         </p>
-        <p className="mt-1 text-xs text-slate-500">Ranking uses the exact total, not the rounded average.</p>
+        <p className="mt-1 text-xs text-zinc-500">Ranking uses the exact total, not the rounded average.</p>
       </div>
 
-      <h3 className="mt-4 text-sm font-semibold text-slate-800">Contribution by place (importance × minutes)</h3>
+      <h3 className="mt-4 text-sm font-semibold text-zinc-800">Contribution by place (importance × minutes)</h3>
       <ul className="mt-2 space-y-1.5" aria-label={`Contribution breakdown for ${inspected.name}`}>
         {rows.map((r) => {
           const p = placeById.get(r.placeId)!;
@@ -93,16 +93,16 @@ export function ExplanationPanel({ view }: { view: ComparatorView }) {
           return (
             <li key={r.placeId} className="grid grid-cols-[1fr_auto] items-center gap-x-3 text-sm">
               <div className="min-w-0">
-                <p className="flex items-center gap-1.5 truncate text-slate-800">
+                <p className="flex items-center gap-1.5 truncate text-zinc-800">
                   <Icon className={`size-3.5 shrink-0 ${p.type === 'attraction' ? 'text-violet-600' : 'text-orange-600'}`} aria-label={p.type} />
                   {p.name}
                 </p>
-                <div className="mt-0.5 h-1.5 overflow-hidden rounded-full bg-slate-100" aria-hidden>
+                <div className="mt-0.5 h-1.5 overflow-hidden rounded-full bg-zinc-100" aria-hidden>
                   <div className="h-full rounded-full bg-indigo-500 transition-all duration-500" style={{ width: `${(r.value / maxValue) * 100}%` }} />
                 </div>
               </div>
-              <p className="text-right text-xs tabular-nums text-slate-600">
-                {r.importance} × {r.roundTripMinutes} = <strong className="text-slate-900">{num(r.value)}</strong>
+              <p className="text-right text-xs tabular-nums text-zinc-600">
+                {r.importance} × {r.roundTripMinutes} = <strong className="text-zinc-900">{num(r.value)}</strong>
               </p>
             </li>
           );

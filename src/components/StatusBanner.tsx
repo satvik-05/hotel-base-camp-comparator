@@ -7,7 +7,7 @@ export function StatusBanner({ view }: { view: ComparatorView }) {
 
   if (result.status === 'invalid') {
     return (
-      <div role="alert" className="rounded-2xl border border-rose-300 bg-rose-50 p-4 text-rose-900">
+      <div role="alert" className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-rose-900 shadow-[0_0_24px_-8px] shadow-rose-500/40">
         <p className="flex items-center gap-2 font-semibold">
           <AlertTriangle className="size-5" aria-hidden /> INVALID INPUT — no comparison shown
         </p>
@@ -26,7 +26,7 @@ export function StatusBanner({ view }: { view: ComparatorView }) {
   if (result.outcome === 'NO_AFFORDABLE_HOTEL') {
     const cheapest = [...result.evaluations].sort((a, b) => a.stayCost - b.stayCost)[0]!;
     return (
-      <div role="status" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-amber-900">
+      <div role="status" className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-900 shadow-[0_0_24px_-8px] shadow-amber-500/40">
         <p className="flex items-center gap-2 font-semibold">
           <SearchX className="size-5" aria-hidden /> NO_AFFORDABLE_HOTEL
         </p>
@@ -40,7 +40,7 @@ export function StatusBanner({ view }: { view: ComparatorView }) {
 
   const rec = result.recommended!;
   return (
-    <div role="status" className="rounded-2xl border border-emerald-300 bg-emerald-50 p-4 text-emerald-900">
+    <div role="status" className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-900 shadow-[0_0_24px_-8px] shadow-emerald-500/40">
       <p className="flex items-center gap-2 font-semibold">
         <CheckCircle2 className="size-5" aria-hidden /> Recommended base camp: {rec.name}
       </p>
