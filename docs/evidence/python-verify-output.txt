@@ -1,0 +1,4 @@
+importance total 41; rank order ['H_LANTERN', 'H_RIVERST', 'H_WILLOW', 'H_TRAMDEP', 'H_MOSSLN', 'H_DOCKS']
+most accessible H_CLOCKGR total 1096 cost 980 (over by 80)
+RIVER flips: [('RIVER', 5)]
+OK: all documented answers match the independent calculation

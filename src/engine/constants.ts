@@ -1,0 +1,14 @@
+export const BUDGET_MIN = 0;
+export const BUDGET_MAX = 1_000_000;
+export const STAY_COST_MIN = 1;
+export const STAY_COST_MAX = 1_000_000;
+export const IMPORTANCE_MIN = 1;
+export const IMPORTANCE_MAX = 5;
+export const TRAVEL_MIN = 1;
+export const TRAVEL_MAX = 600;
+export const HOTEL_COUNT_MIN = 2;
+export const HOTEL_COUNT_MAX = 10;
+export const PLACE_COUNT_MIN = 3;
+export const PLACE_COUNT_MAX = 15;
+export const ID_PATTERN = /^[A-Z][A-Z0-9_-]{0,15}$/;
+export const PLACE_TYPES = ['attraction', 'food'] as const;
