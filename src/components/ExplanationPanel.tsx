@@ -1,8 +1,9 @@
 import { Landmark, Utensils } from 'lucide-react';
 import type { ComparatorView } from '../state/derive';
-import { money, num } from './format';
+import { makeMoney, num } from './format';
 
 export function ExplanationPanel({ view }: { view: ComparatorView }) {
+  const money = makeMoney(view.city.currency);
   const { result, inspected, scenario } = view;
 
   if (result.status === 'invalid' || !inspected) {

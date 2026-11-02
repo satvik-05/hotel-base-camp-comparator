@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Ban, Hotel as HotelIcon, Star } from 'lucide-react';
 import type { HotelEvaluation } from '../engine';
 import type { ComparatorView } from '../state/derive';
-import { money, num } from './format';
+import { makeMoney, num, type Money } from './format';
 import { useFlip } from './useFlip';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   onInspect: (id: string) => void;
 }
 
-function RowBody({ e, maxTotal }: { e: HotelEvaluation; maxTotal: number }) {
+function RowBody({ e, maxTotal, money }: { e: HotelEvaluation; maxTotal: number; money: Money }) {
   return (
     <>
       <div className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1">
@@ -23,7 +23,7 @@ function RowBody({ e, maxTotal }: { e: HotelEvaluation; maxTotal: number }) {
               •
             </span>
             {e.affordable ? (
-              <span className="tabular-nums">{e.remainingBudget === 0 ? 'exactly on budget ($0 left)' : `${money(e.remainingBudget)} left`}</span>
+              <span className="tabular-nums">{e.remainingBudget === 0 ? `exactly on budget (${money(0)} left)` : `${money(e.remainingBudget)} left`}</span>
             ) : null}
           </p>
         </div>
@@ -74,6 +74,7 @@ const rowStyle = (e: HotelEvaluation, selected: boolean): string => {
 
 export function HotelRanking({ view, inspectedId, onInspect }: Props) {
   const { result } = view;
+  const money = makeMoney(view.city.currency);
   const listRef = useRef<HTMLDivElement>(null);
   useFlip(listRef, result.status === 'ok' ? result.evaluations.map((e) => `${e.hotelId}:${e.rank ?? 'x'}`).join('|') : 'invalid');
 
@@ -112,7 +113,7 @@ export function HotelRanking({ view, inspectedId, onInspect }: Props) {
           {badge}
         </span>
         <span className="min-w-0 flex-1">
-          <RowBody e={e} maxTotal={maxTotal} />
+          <RowBody e={e} maxTotal={maxTotal} money={money} />
         </span>
       </button>
     </li>

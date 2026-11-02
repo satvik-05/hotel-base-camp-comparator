@@ -1,11 +1,13 @@
 import { Compass, MapPinned } from 'lucide-react';
+import { dataNote } from './components/CityPicker';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
+import { CITIES } from './data/cities';
 import { Workspace } from './components/Workspace';
 import { useComparator } from './state/useComparator';
 import { useTheme } from './state/useTheme';
 
 export default function App() {
-  const c = useComparator();
+  const cmp = useComparator();
   const theme = useTheme();
 
   return (
@@ -29,22 +31,40 @@ export default function App() {
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
-        {c.state.phase === 'loaded' && c.view ? (
-          <Workspace state={c.state} view={c.view} actions={c} />
+        {cmp.state.phase === 'loaded' && cmp.view ? (
+          <Workspace state={cmp.state} view={cmp.view} actions={cmp} />
         ) : (
-          <section className="mx-auto max-w-xl card p-8 text-center">
-            <MapPinned className="mx-auto size-10 text-indigo-600" aria-hidden />
-            <h2 className="mt-3 text-lg font-semibold">Plan your Marlowe Bay trip</h2>
-            <p className="mt-2 text-sm text-zinc-600">
-              10 hotels, 15 wishlist places, one whole-stay budget. Load the city to compare weighted round-trip travel against price.
-            </p>
-            <button
-              type="button"
-              onClick={c.load}
-              className="mt-5 rounded-lg bg-indigo-600 px-5 py-2.5 font-semibold text-white shadow-[0_0_20px_-4px] shadow-indigo-500/60 transition duration-150 hover:bg-indigo-500 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Load Marlowe Bay
-            </button>
+          <section aria-labelledby="landing-title" className="mx-auto max-w-5xl">
+            <div className="text-center">
+              <MapPinned className="mx-auto size-10 text-indigo-600" aria-hidden />
+              <h2 id="landing-title" className="mt-3 text-lg font-semibold">
+                Pick a city to plan your trip
+              </h2>
+              <p className="mx-auto mt-2 max-w-xl text-sm text-zinc-600">
+                10 hotels, 15 wishlist places, one whole-stay budget. Load a city to compare weighted round-trip travel against price.
+              </p>
+            </div>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+              {CITIES.map((c) => (
+                <li key={c.id} className="card flex flex-col p-5">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <h3 className="text-base font-semibold">{c.name}</h3>
+                    <span className="rounded-full bg-zinc-500/10 px-2 py-0.5 text-xs font-medium text-zinc-600 ring-1 ring-zinc-500/20">
+                      {c.country} · {c.currency.symbol}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm text-zinc-600">{c.blurb}</p>
+                  <p className="mt-2 text-xs text-zinc-500">{dataNote(c.fictional)}</p>
+                  <button
+                    type="button"
+                    onClick={() => cmp.load(c.id)}
+                    className="mt-4 self-start rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_0_20px_-4px] shadow-indigo-500/60 transition duration-150 hover:bg-indigo-500 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Load {c.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </section>
         )}
       </main>

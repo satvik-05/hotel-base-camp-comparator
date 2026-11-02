@@ -1,6 +1,6 @@
 import { compare, withImportance } from '../engine';
 import type { EngineResult, Hotel, HotelEvaluation, Place, Scenario } from '../engine';
-import { MAIN_BUDGET } from '../data/mainCity';
+import { getCity, type CityDefinition } from '../data/cities';
 import { parseWhole, type LoadedState } from './reducer';
 
 export interface Problem {
@@ -16,6 +16,8 @@ export interface HypotheticalBudget {
 }
 
 export interface ComparatorView {
+  /** The city being compared (currency, slider range, map markers). */
+  readonly city: CityDefinition;
   readonly budget: number;
   /** City with the current importance inputs applied (NaN where the input is invalid). */
   readonly scenario: Scenario;
@@ -36,6 +38,7 @@ export interface ComparatorView {
 }
 
 export function deriveView(s: LoadedState): ComparatorView {
+  const city = getCity(s.cityId);
   const budget = parseWhole(s.budgetInput);
   const scenario: Scenario = s.scenario.places.reduce(
     (acc, p) => withImportance(acc, p.id, parseWhole(s.importanceInputs[p.id] ?? '')),
@@ -83,8 +86,9 @@ export function deriveView(s: LoadedState): ComparatorView {
   }
 
   const changedImportance = s.scenario.places.filter((p) => s.importanceInputs[p.id] !== String(p.importance));
-  const budgetChanged = s.budgetInput !== String(MAIN_BUDGET);
+  const budgetChanged = s.budgetInput !== String(city.budget);
   return {
+    city,
     budget,
     scenario,
     result,

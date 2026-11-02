@@ -2,9 +2,7 @@ import { RotateCcw, Wallet } from 'lucide-react';
 import type { Comparator } from '../state/useComparator';
 import type { LoadedState } from '../state/reducer';
 import type { ComparatorView } from '../state/derive';
-import { money } from './format';
-
-const SLIDER_MAX = 1500;
+import { makeMoney } from './format';
 
 interface Props {
   state: LoadedState;
@@ -14,7 +12,9 @@ interface Props {
 }
 
 export function Controls({ state, view, setBudget, reset }: Props) {
-  const sliderValue = Number.isFinite(view.budget) ? Math.min(Math.max(view.budget, 0), SLIDER_MAX) : 0;
+  const money = makeMoney(view.city.currency);
+  const { max: sliderMax, step: sliderStep } = view.city.slider;
+  const sliderValue = Number.isFinite(view.budget) ? Math.min(Math.max(view.budget, 0), sliderMax) : 0;
   const unlock = view.mostAccessible && !view.mostAccessible.affordable ? view.mostAccessible : null;
 
   return (
@@ -40,7 +40,7 @@ export function Controls({ state, view, setBudget, reset }: Props) {
           <div className="mt-2 flex items-center gap-2">
             <div className="relative">
               <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-zinc-500" aria-hidden>
-                $
+                {view.city.currency.symbol}
               </span>
               <input
                 id="budget"
@@ -60,12 +60,12 @@ export function Controls({ state, view, setBudget, reset }: Props) {
             <input
               type="range"
               min={0}
-              max={SLIDER_MAX}
-              step={10}
+              max={sliderMax}
+              step={sliderStep}
               value={sliderValue}
               onChange={(e) => setBudget(e.target.value)}
               aria-label="Budget slider"
-              style={{ '--pct': `${(sliderValue / SLIDER_MAX) * 100}%` } as React.CSSProperties}
+              style={{ '--pct': `${(sliderValue / sliderMax) * 100}%` } as React.CSSProperties}
               className="range-modern min-w-0 flex-1"
             />
           </div>

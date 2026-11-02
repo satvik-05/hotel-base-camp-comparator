@@ -1,18 +1,11 @@
 
-> hotel-base-camp-comparator@1.0.0 test
-> vitest run --reporter=verbose
-
-
  RUN  v5.0.5 /Users/sakethjangala/Documents/Projects/hotel-base-camp-comparator
 
- ✓ src/theme.test.ts > theme helpers > resolves explicit prefs directly and system by the OS flag 1ms
- ✓ src/theme.test.ts > theme helpers > validates stored values 0ms
- ✓ src/theme.test.ts > theme helpers > reads and writes the preference, defaulting to system for missing or garbage values 0ms
- ✓ src/theme.test.ts > theme helpers > never throws when storage is unavailable 1ms
- ✓ src/theme.test.ts > theme helpers > applyTheme sets the data-theme attribute used by the CSS 1ms
- ✓ src/theme.test.ts > theme helpers > tolerates environments without matchMedia 0ms
- ✓ src/engine/rank.test.ts > budget equality > a hotel exactly on budget is affordable and can win 13ms
- ✓ src/engine/rank.test.ts > budget equality > one unit over budget is unranked, labelled, and never recommended 1ms
+ ✓ src/components/format.test.ts > money formatting per city > puts the symbol first and groups digits by the city locale 28ms
+ ✓ src/components/format.test.ts > money formatting per city > keeps the minus sign in front of the symbol and handles zero 0ms
+ ✓ src/components/format.test.ts > money formatting per city > formats importance-minute totals without a currency 0ms
+ ✓ src/engine/rank.test.ts > budget equality > a hotel exactly on budget is affordable and can win 21ms
+ ✓ src/engine/rank.test.ts > budget equality > one unit over budget is unranked, labelled, and never recommended 0ms
  ✓ src/engine/rank.test.ts > budget equality > crossing the boundary makes the better hotel recommended 0ms
  ✓ src/engine/rank.test.ts > ranking rules > ranks by exact total even when rounded averages display identically 0ms
  ✓ src/engine/rank.test.ts > ranking rules > accessibility tie is resolved by lower stay cost 0ms
@@ -24,14 +17,14 @@
  ✓ src/engine/rank.test.ts > NO_AFFORDABLE_HOTEL > is a valid ok result with no winner or ranks, and shortfalls retained 0ms
  ✓ src/engine/rank.test.ts > NO_AFFORDABLE_HOTEL > budget 0 is valid and nothing is affordable 0ms
  ✓ src/engine/rank.test.ts > NO_AFFORDABLE_HOTEL > moving the budget up leaves no stale state either way 0ms
- ✓ src/engine/rank.test.ts > budget vs importance changes > budget change alone keeps every contribution identical 1ms
+ ✓ src/engine/rank.test.ts > budget vs importance changes > budget change alone keeps every contribution identical 0ms
  ✓ src/engine/rank.test.ts > budget vs importance changes > importance change recomputes contributions, totals, averages and ranks 0ms
  ✓ src/engine/rank.test.ts > budget vs importance changes > withImportance does not mutate the original scenario 0ms
  ✓ src/engine/rank.test.ts > budget vs importance changes > out-of-range importance becomes an invalid result 0ms
- ✓ src/engine/validate.test.ts > validateBudget > accepts 0 3ms
+ ✓ src/engine/validate.test.ts > validateBudget > accepts 0 1ms
  ✓ src/engine/validate.test.ts > validateBudget > accepts 1 0ms
  ✓ src/engine/validate.test.ts > validateBudget > accepts 1000000 0ms
- ✓ src/engine/validate.test.ts > validateBudget > rejects -1 10ms
+ ✓ src/engine/validate.test.ts > validateBudget > rejects -1 17ms
  ✓ src/engine/validate.test.ts > validateBudget > rejects 1000001 0ms
  ✓ src/engine/validate.test.ts > validateBudget > rejects 1.5 0ms
  ✓ src/engine/validate.test.ts > validateBudget > rejects NaN 0ms
@@ -48,8 +41,8 @@
  ✓ src/engine/validate.test.ts > validateImportance > rejects NaN 0ms
  ✓ src/engine/validate.test.ts > validateImportance > rejects 3 0ms
  ✓ src/engine/validate.test.ts > validateImportance > rejects undefined 0ms
- ✓ src/engine/validate.test.ts > validateScenario > accepts a good scenario 0ms
- ✓ src/engine/validate.test.ts > validateScenario > rejects too few / too many hotels and places 0ms
+ ✓ src/engine/validate.test.ts > validateScenario > accepts a good scenario 1ms
+ ✓ src/engine/validate.test.ts > validateScenario > rejects too few / too many hotels and places 1ms
  ✓ src/engine/validate.test.ts > validateScenario > rejects malformed id "a1" 0ms
  ✓ src/engine/validate.test.ts > validateScenario > rejects malformed id "1A" 0ms
  ✓ src/engine/validate.test.ts > validateScenario > rejects malformed id "" 0ms
@@ -82,38 +75,102 @@
  ✓ src/engine/validate.test.ts > validateScenario > rejects malformed scenario "x" 0ms
  ✓ src/engine/validate.test.ts > validateScenario > rejects malformed scenario {} 0ms
  ✓ src/engine/validate.test.ts > validateScenario > rejects malformed scenario {"hotels":[],"places":3} 0ms
- ✓ src/engine/validate.test.ts > invalid-state clearing > duplicate ID yields only errors (no partial ranking) 0ms
+ ✓ src/engine/validate.test.ts > invalid-state clearing > duplicate ID yields only errors (no partial ranking) 1ms
  ✓ src/engine/validate.test.ts > invalid-state clearing > incomplete mapping yields only errors even though other hotels are valid 0ms
  ✓ src/engine/validate.test.ts > invalid-state clearing > invalid budget -1 yields only errors 0ms
- ✓ src/engine/validate.test.ts > invalid-state clearing > invalid budget 1000001 yields only errors 0ms
+ ✓ src/engine/validate.test.ts > invalid-state clearing > invalid budget 1000001 yields only errors 1ms
  ✓ src/engine/validate.test.ts > invalid-state clearing > invalid budget 2.5 yields only errors 0ms
  ✓ src/engine/validate.test.ts > invalid-state clearing > invalid budget NaN yields only errors 0ms
  ✓ src/engine/validate.test.ts > invalid-state clearing > invalid importance yields only errors 0ms
- ✓ src/engine/validate.test.ts > invalid-state clearing > reports every error found, each with a path 0ms
+ ✓ src/engine/validate.test.ts > invalid-state clearing > reports every error found, each with a path 1ms
+ ✓ src/data/cities/cities.test.ts > city registry > offers Marlowe Bay (default, fictional) plus Hyderabad, Kyoto and Lisbon, with unique ids 4ms
+ ✓ src/data/cities/cities.test.ts > city registry > falls back to Marlowe Bay for an unknown id 0ms
+ ✓ src/data/cities/cities.test.ts > Marlowe Bay > is a valid 10-hotel, 15-place scenario at its default budget 1ms
+ ✓ src/data/cities/cities.test.ts > Marlowe Bay > has 8 attractions, 7 food stops and varied importances 0ms
+ ✓ src/data/cities/cities.test.ts > Marlowe Bay > returns a fresh deep-frozen scenario on every call (Reset restores originals) 1ms
+ ✓ src/data/cities/cities.test.ts > Marlowe Bay > has a marker for each of the 25 hotels and places, inside the map, and none stacked 1ms
+ ✓ src/data/cities/cities.test.ts > Marlowe Bay > has a default inspected hotel that exists and a usable slider range 1ms
+ ✓ src/data/cities/cities.test.ts > Marlowe Bay > has a backdrop made of non-empty paths and uniquely named labels 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad > is a valid 10-hotel, 15-place scenario at its default budget 1ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad > has 8 attractions, 7 food stops and varied importances 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad > returns a fresh deep-frozen scenario on every call (Reset restores originals) 2ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad > has a marker for each of the 25 hotels and places, inside the map, and none stacked 1ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad > has a default inspected hotel that exists and a usable slider range 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad > has a backdrop made of non-empty paths and uniquely named labels 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto > is a valid 10-hotel, 15-place scenario at its default budget 1ms
+ ✓ src/data/cities/cities.test.ts > Kyoto > has 8 attractions, 7 food stops and varied importances 1ms
+ ✓ src/data/cities/cities.test.ts > Kyoto > returns a fresh deep-frozen scenario on every call (Reset restores originals) 1ms
+ ✓ src/data/cities/cities.test.ts > Kyoto > has a marker for each of the 25 hotels and places, inside the map, and none stacked 1ms
+ ✓ src/data/cities/cities.test.ts > Kyoto > has a default inspected hotel that exists and a usable slider range 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto > has a backdrop made of non-empty paths and uniquely named labels 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon > is a valid 10-hotel, 15-place scenario at its default budget 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon > has 8 attractions, 7 food stops and varied importances 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon > returns a fresh deep-frozen scenario on every call (Reset restores originals) 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon > has a marker for each of the 25 hotels and places, inside the map, and none stacked 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon > has a default inspected hotel that exists and a usable slider range 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon > has a backdrop made of non-empty paths and uniquely named labels 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad demo story (budget and ranking rules) > has 4-7 affordable hotels, one exactly on budget, and the recommendation is not the cheapest affordable 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad demo story (budget and ranking rules) > the single most accessible hotel is over budget, and becomes recommended at exactly its cost 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad demo story (budget and ranking rules) > splits at 90 minutes: one affordable hotel has every trip within 90, another has a longer trip 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad demo story (budget and ranking rules) > keeps every marker label clear of the others and of the zoom/compass corners 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad demo story (budget and ranking rules) > budget 0 gives NO_AFFORDABLE_HOTEL with every shortfall kept 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad demo story (budget and ranking rules) > matches the documented answers in expected.ts (engine vs independent record) 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto demo story (budget and ranking rules) > has 4-7 affordable hotels, one exactly on budget, and the recommendation is not the cheapest affordable 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto demo story (budget and ranking rules) > the single most accessible hotel is over budget, and becomes recommended at exactly its cost 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto demo story (budget and ranking rules) > splits at 90 minutes: one affordable hotel has every trip within 90, another has a longer trip 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto demo story (budget and ranking rules) > keeps every marker label clear of the others and of the zoom/compass corners 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto demo story (budget and ranking rules) > budget 0 gives NO_AFFORDABLE_HOTEL with every shortfall kept 0ms
+ ✓ src/data/cities/cities.test.ts > Kyoto demo story (budget and ranking rules) > matches the documented answers in expected.ts (engine vs independent record) 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon demo story (budget and ranking rules) > has 4-7 affordable hotels, one exactly on budget, and the recommendation is not the cheapest affordable 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon demo story (budget and ranking rules) > the single most accessible hotel is over budget, and becomes recommended at exactly its cost 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon demo story (budget and ranking rules) > splits at 90 minutes: one affordable hotel has every trip within 90, another has a longer trip 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon demo story (budget and ranking rules) > keeps every marker label clear of the others and of the zoom/compass corners 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon demo story (budget and ranking rules) > budget 0 gives NO_AFFORDABLE_HOTEL with every shortfall kept 0ms
+ ✓ src/data/cities/cities.test.ts > Lisbon demo story (budget and ranking rules) > matches the documented answers in expected.ts (engine vs independent record) 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad specifics > uses Indian digit grouping and rupees, with a generous slider 0ms
+ ✓ src/data/cities/cities.test.ts > Hyderabad specifics > names real landmarks but only invented hotels 0ms
  ✓ src/state/reducer.test.ts > reducer > starts empty and ignores edits until LOAD 3ms
  ✓ src/state/reducer.test.ts > reducer > parseWhole is strict 0ms
- ✓ src/state/reducer.test.ts > reducer > inspecting changes only the inspected id, never the result 13ms
+ ✓ src/state/reducer.test.ts > reducer > inspecting changes only the inspected id, never the result 16ms
  ✓ src/state/reducer.test.ts > reducer > budget and importance edits flow through the engine 0ms
- ✓ src/state/reducer.test.ts > reducer > invalid budget "-1" clears everything derived 0ms
- ✓ src/state/reducer.test.ts > reducer > invalid budget "1000001" clears everything derived 0ms
+ ✓ src/state/reducer.test.ts > reducer > invalid budget "-1" clears everything derived 4ms
+ ✓ src/state/reducer.test.ts > reducer > invalid budget "1000001" clears everything derived 2ms
  ✓ src/state/reducer.test.ts > reducer > invalid budget "abc" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid budget "" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid importance "0" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid importance "6" clears everything derived 0ms
  ✓ src/state/reducer.test.ts > reducer > invalid importance "x" clears everything derived 0ms
- ✓ src/state/reducer.test.ts > reducer > RESET restores budget, importances and inspected hotel exactly 0ms
+ ✓ src/state/reducer.test.ts > reducer > RESET restores budget, importances and inspected hotel exactly 3ms
  ✓ src/state/reducer.test.ts > reducer > over-budget inspected hotel exposes what happens at its own cost 0ms
+ ✓ src/state/reducer.test.ts > reducer > cities > LOAD without a city loads Marlowe Bay; with a city loads that city's original trip 1ms
+ ✓ src/state/reducer.test.ts > reducer > cities > an unknown city id falls back to Marlowe Bay and records the resolved id 0ms
+ ✓ src/state/reducer.test.ts > reducer > cities > edits keep the city; RESET restores that city's original, not Marlowe's 1ms
+ ✓ src/state/reducer.test.ts > reducer > cities > switching city discards edits from the previous city 1ms
+ ✓ src/state/reducer.test.ts > reducer > cities > rejects a hotel or place from another city 2ms
+ ✓ src/state/reducer.test.ts > reducer > cities > every city starts as an original, valid, recommending trip 4ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > small scenario: none, then each improvement at exactly the stay cost 17ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > merges costs that do not change the recommendation 1ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > agrees with compare() at every budget in the main city (boundaries included) 151ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > main city ends with Clocktower Grand exactly at its stay cost 1ms
+ ✓ src/engine/timeline.test.ts > budgetTimeline > returns nothing for an invalid scenario 0ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > offers Light, Dark and System, defaulting to System 68ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > System follows the OS, live 5ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > explicit Dark/Light override the OS and persist 58ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > restores the saved preference on the next visit 8ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > supports arrow-key navigation with a roving tabindex 41ms
+ ✓ src/App.test.tsx > App smoke > loads in one action and shows 25 markers with 15 links for the inspected hotel only 181ms
+ ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > does not affect the comparison result 145ms
  ✓ src/data/mainCity.test.ts > main city shape > has exactly 10 hotels and 15 places and validates 3ms
  ✓ src/data/mainCity.test.ts > main city shape > has >=3 attractions, >=3 food stops, >=3 importance values 0ms
  ✓ src/data/mainCity.test.ts > main city shape > has a complete 10x15 matrix matching the place order 1ms
  ✓ src/data/mainCity.test.ts > main city shape > positions all 25 markers distinctly inside the 1000x640 map 0ms
  ✓ src/data/mainCity.test.ts > main city shape > is deterministic: every call materializes an identical, frozen scenario 1ms
- ✓ src/data/mainCity.test.ts > main city shape > engine code never touches marker geometry or city data 1ms
+ ✓ src/data/mainCity.test.ts > main city shape > engine code never touches marker geometry or city data 0ms
  ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > uses the documented budget and importance total 0ms
  ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_DOCKS total, average, affordability, remaining, rank 0ms
  ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_MOSSLN total, average, affordability, remaining, rank 0ms
  ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_TRAMDEP total, average, affordability, remaining, rank 0ms
- ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_LANTERN total, average, affordability, remaining, rank 0ms
+ ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_LANTERN total, average, affordability, remaining, rank 2ms
  ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_WILLOW total, average, affordability, remaining, rank 0ms
  ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_RIVERST total, average, affordability, remaining, rank 0ms
  ✓ src/data/mainCity.test.ts > documented answers are reproduced by the engine (not fed to it) > H_CLOCKGR total, average, affordability, remaining, rank 0ms
@@ -125,22 +182,16 @@
  ✓ src/data/mainCity.test.ts > main-scenario story conditions > the unique most accessible hotel is over budget 0ms
  ✓ src/data/mainCity.test.ts > main-scenario story conditions > the recommendation is not the cheapest affordable hotel 0ms
  ✓ src/data/mainCity.test.ts > main-scenario story conditions > affordable hotels fall on both sides of the 90-minute longest-trip line 0ms
- ✓ src/data/mainCity.test.ts > main-scenario story conditions > raising the budget to the accessible hotel cost recommends it, exactly at the boundary 1ms
+ ✓ src/data/mainCity.test.ts > main-scenario story conditions > raising the budget to the accessible hotel cost recommends it, exactly at the boundary 0ms
  ✓ src/data/mainCity.test.ts > main-scenario story conditions > changing the what-if importance changes the recommended hotel (and only that place alone does) 0ms
  ✓ src/data/mainCity.test.ts > main-scenario story conditions > reset: a fresh scenario at the original budget reproduces the original result exactly 1ms
- ✓ src/data/mainCity.test.ts > anti-circularity > no non-test source file imports data/expected 2ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > small scenario: none, then each improvement at exactly the stay cost 9ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > merges costs that do not change the recommendation 1ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > agrees with compare() at every budget in the main city (boundaries included) 112ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > main city ends with Clocktower Grand exactly at its stay cost 1ms
- ✓ src/engine/timeline.test.ts > budgetTimeline > returns nothing for an invalid scenario 0ms
- ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > offers Light, Dark and System, defaulting to System 49ms
- ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > System follows the OS, live 6ms
- ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > explicit Dark/Light override the OS and persist 29ms
- ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > restores the saved preference on the next visit 4ms
- ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > supports arrow-key navigation with a roving tabindex 19ms
- ✓ src/ThemeSwitcher.test.tsx > ThemeSwitcher > does not affect the comparison result 89ms
- ✓ src/App.test.tsx > App smoke > loads in one action and shows 25 markers with 15 links for the inspected hotel only 131ms
+ ✓ src/data/mainCity.test.ts > anti-circularity > no non-test source file imports data/expected 6ms
+ ✓ src/theme.test.ts > theme helpers > resolves explicit prefs directly and system by the OS flag 1ms
+ ✓ src/theme.test.ts > theme helpers > validates stored values 0ms
+ ✓ src/theme.test.ts > theme helpers > reads and writes the preference, defaulting to system for missing or garbage values 0ms
+ ✓ src/theme.test.ts > theme helpers > never throws when storage is unavailable 1ms
+ ✓ src/theme.test.ts > theme helpers > applyTheme sets the data-theme attribute used by the CSS 1ms
+ ✓ src/theme.test.ts > theme helpers > tolerates environments without matchMedia 0ms
  ✓ src/engine/calculate.test.ts > contribution arithmetic (spec illustration) > multiplies importance by minutes 1ms
  ✓ src/engine/calculate.test.ts > contribution arithmetic (spec illustration) > sums to 140 importance-minutes with 28.0 average 0ms
  ✓ src/engine/calculate.test.ts > round-half-up display > total 1 / importance 4 -> 0.3 0ms
@@ -152,17 +203,76 @@
  ✓ src/engine/calculate.test.ts > round-half-up display > total 1712 / importance 41 -> 41.8 0ms
  ✓ src/engine/calculate.test.ts > round-half-up display > total 99 / importance 10 -> 9.9 0ms
  ✓ src/engine/calculate.test.ts > round-half-up display > total 995 / importance 100 -> 10.0 0ms
- ✓ src/App.test.tsx > App smoke > shows Over budget label, then recommends the accessible hotel at its price 128ms
- ✓ src/App.test.tsx > App smoke > invalid budget clears ranks, recommendation and links 79ms
- ✓ src/App.test.tsx > App smoke > budget 0 shows NO_AFFORDABLE_HOTEL without a winner 68ms
- ✓ src/App.test.tsx > App smoke > Riverside Walk what-if changes the recommendation and Reset restores it 113ms
- ✓ src/App.test.tsx > App smoke > timeline steps set the budget and mark the current range 64ms
- ✓ src/App.test.tsx > App smoke > inspecting a hotel by keyboard moves the links but not the result 58ms
- ✓ src/a11y.test.tsx > accessibility (axe) > has no violations on the landing screen, the loaded workspace, and invalid/no-affordable states 693ms
- ✓ src/a11y.test.tsx > accessibility (axe) > communicates state with text or symbols, not colour alone 49ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > starts on the whole map 1ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > zooming in halves the window and keeps the anchor point fixed on screen 0ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > clamps zoom to its limits and the window to the map 0ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > cannot pan the whole map (nothing to pan at zoom 1) 0ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > pans a zoomed window but never off the map 0ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > zooming back out returns to the whole map from anywhere 0ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > normalize repairs out-of-range input 0ms
+ ✓ src/components/mapViewport.test.ts > map viewport maths > detects markers near or beyond the window edge, and recentres on them 0ms
+ ✓ src/App.test.tsx > App smoke > shows Over budget label, then recommends the accessible hotel at its price 211ms
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+ ✓ src/App.test.tsx > App smoke > invalid budget clears ranks, recommendation and links 87ms
+ ✓ src/App.test.tsx > App smoke > budget 0 shows NO_AFFORDABLE_HOTEL without a winner 65ms
+ ✓ src/App.test.tsx > App smoke > raising Riverside Walk importance in the table changes the recommendation and Reset restores it 120ms
+stderr | src/App.test.tsx > App smoke > inspecting a hotel by keyboard moves the links but not the result
+An update to CityMap inside a test was not wrapped in act(...).
 
- Test Files  10 passed (10)
-      Tests  155 passed (155)
-   Start at  17:21:27
-   Duration  1.46s (environment 53%, tests 26%, setup 8%, import 7%, transform 4%, worker 1%)
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+ ✓ src/App.test.tsx > App smoke > timeline steps set the budget and mark the current range 54ms
+ ✓ src/App.test.tsx > App smoke > inspecting a hotel by keyboard moves the links but not the result 52ms
+ ✓ src/App.test.tsx > App smoke > Copy summary puts the recommendation and ranking on the clipboard 57ms
+ ✓ src/App.test.tsx > App smoke > re-keys the map links when a different hotel is inspected so they redraw 42ms
+stderr | src/App.test.tsx > App smoke > map > zooms in and out with buttons and resets; zoom never changes the result
+Received NaN for the `y` attribute. If this is expected, cast the value to a string.
+Received NaN for the `fontSize` attribute. If this is expected, cast the value to a string.
+
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+ ✓ src/a11y.test.tsx > accessibility (axe) > has no violations on the landing screen, the loaded workspace, and invalid/no-affordable states 900ms
+ ✓ src/a11y.test.tsx > accessibility (axe) > communicates state with text or symbols, not colour alone 54ms
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+ ✓ src/a11y.test.tsx > accessibility (axe) > has no violations in each demo city, with the city picker and its map 836ms
+stderr | src/App.test.tsx > App smoke > map > keyboard +, - and 0 zoom the map from a focused marker
+An update to CityMap inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/App.test.tsx > App smoke > map > zooms in and out with buttons and resets; zoom never changes the result 1916ms
+ ✓ src/App.test.tsx > App smoke > map > keyboard +, - and 0 zoom the map from a focused marker 1788ms
+ ✓ src/App.test.tsx > App smoke > map > shows a details card when a hotel is hovered or a place is hovered 98ms
+ ✓ src/App.test.tsx > App smoke > map > layer toggles hide names and link values, and Top 5 keeps exactly five links 146ms
+ ✓ src/App.test.tsx > App smoke > map > invalid input still clears every link and the tooltip data 50ms
+ ✓ src/App.test.tsx > App smoke > cities > the landing screen offers every city and shows nothing else yet 4ms
+ ✓ src/App.test.tsx > App smoke > cities > Hyderabad loads with rupees, its own map and its own recommendation 56ms
+ ✓ src/App.test.tsx > App smoke > cities > the picker switches cities, loads that city's original trip and keeps results consistent 125ms
+ ✓ src/App.test.tsx > App smoke > cities > switching city discards edits, and Reset restores the current city, not Marlowe Bay 234ms
+ ✓ src/App.test.tsx > App smoke > cities > arrow keys move between cities in the picker 79ms
+ ✓ src/App.test.tsx > App smoke > cities > the budget cliff, no-affordable and invalid rules hold in a demo city, with that city's currency 180ms
+ ✓ src/App.test.tsx > App smoke > cities > Copy summary uses the city's currency 52ms
+ ✓ src/App.test.tsx > App smoke > cities > map hover cards, zoom and layers work with a demo city's markers 57ms
+
+ Test Files  13 passed (13)
+      Tests  234 passed (234)
+   Start at  19:18:43
+   Duration  6.69s (tests 49%, environment 37%, setup 6%, import 4%, transform 3%, worker 1%)
 

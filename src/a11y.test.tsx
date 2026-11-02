@@ -41,7 +41,19 @@ describe('accessibility (axe)', () => {
     expect(hotel).toHaveAttribute('aria-label', expect.stringContaining('over budget by 80'));
     expect(hotel.textContent).toContain('✕');
     expect(document.querySelector('[data-testid="hotel-H_LANTERN"]')!.textContent).toContain('★');
-    expect(document.querySelector('[data-testid="place-CLOCK"] title')!.textContent).toMatch(/attraction/);
-    expect(document.querySelector('[data-testid="place-NOODLE"] title')!.textContent).toMatch(/food/);
+    expect(document.querySelector('[data-testid="place-CLOCK"]')).toHaveAttribute('aria-label', expect.stringMatching(/attraction/));
+    expect(document.querySelector('[data-testid="place-NOODLE"]')).toHaveAttribute('aria-label', expect.stringMatching(/food/));
+  });
+
+  it('has no violations in each demo city, with the city picker and its map', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(screen.getByRole('button', { name: /load hyderabad/i }));
+    expect(await audit()).toEqual([]);
+    for (const name of ['Kyoto', 'Lisbon', 'Marlowe Bay']) {
+      await user.click(screen.getByRole('radio', { name }));
+      expect(await audit()).toEqual([]);
+    }
   });
 });
+

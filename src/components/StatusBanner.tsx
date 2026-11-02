@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AlertTriangle, Check, CheckCircle2, Copy, SearchX } from 'lucide-react';
 import type { ComparatorView } from '../state/derive';
-import { money } from './format';
+import { makeMoney } from './format';
 
 function CopySummary({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -28,6 +28,7 @@ function CopySummary({ text }: { text: string }) {
 
 export function StatusBanner({ view }: { view: ComparatorView }) {
   const { result } = view;
+  const money = makeMoney(view.city.currency);
 
   if (result.status === 'invalid') {
     return (

@@ -46,10 +46,61 @@ map labels, which led to re-spacing the markers and widening the map.
 **Outcome:** `budgetTimeline()` built on `compare()` (verified against `compare()` at every budget 0–1400); axe
 audit found and fixed one real defect; a contrast calculation found and fixed one failing badge colour.
 
+## Prompt 4 — Premium redesign
+> Modernise to a Linear/Vercel-style decision dashboard: frosted sticky header, cards, soft-tint pill badges with
+> glowing rings, modern slider and importance selector. Zero changes to the engine, data or tests.
+
+**Outcome:** token-based theme (dark mode by remapping the palette scales instead of per-component `dark:`
+classes). Browser measurement found a corrupted utility class from a bulk `slate-`→`zinc-` rename; fixed, and a
+warning added to `CLAUDE.md`. Contrast computed by script and a failing badge fixed.
+
+## Prompt 5 — Theme switcher and Git
+> Manual Light / Dark / System switcher in the header, persisted, no flash. Run tests and build, commit with a
+> clear message and push to `origin main`.
+
+**Outcome:** `theme.ts` + `useTheme` + inline no-flash script; verified in headless Chrome for four OS/saved
+combinations; GitHub repo created and pushed.
+
+## Prompt 6 — Simplify Trip settings
+> "What if Riverside Walk mattered more?" is creating confusion in the trip settings.
+
+**Outcome:** the one-place shortcut was removed; importance is edited only in the table. The test was moved to the
+table input. Lesson: a duplicate control for a single place reads as a different feature, not a shortcut.
+
+## Prompt 7 — Overall UI, animation and feature polish
+> Make the site more advanced, smooth, comfortable and beautiful (UI, animations, design, features).
+
+**Outcome:** a bounded, presentation-only batch (FLIP reorder, staggered entrance, banner pop, drawn links,
+pulsing marker, Copy summary, background glow). Found and fixed a real focus race in the theme switcher that made
+one test flaky. Animated counters were considered and rejected for accessibility.
+
+## Prompt 8 — Improve the map
+> The present map is very basic; improve it.
+
+**Outcome:** city backdrop, zoom/pan (buttons, keys, Ctrl/⌘ + wheel, drag), hover/focus cards, layer toggles and a
+Top-5-links filter. Pure viewport maths unit-tested; map coordinates and zoom still never reach the engine.
+A mid-task failure was load-related (CPU shared with the headless browser), not a logic bug.
+
+## Prompt 9 — Update all README/docs
+> Make sure all the readme files are updated.
+
+**Outcome (docs refresh after the map work):** there was no `README.md`, so one was written; `CLAUDE.md`, `PLAN.md`, `DESIGN.md`, `EVIDENCE.md` and
+this file were brought up to date; every screenshot was regenerated for the current UI and the raw logs re-run.
+
+## Prompt 10 — More cities, including Hyderabad
+> Let's add more cities for demonstration, and one of them can be Hyderabad.
+
+**Outcome:** a city registry with Hyderabad, Kyoto and Lisbon beside Marlowe Bay. Assistant-driven decisions: real landmark names but invented hotels,
+prices and travel times, labelled as such; every city must satisfy the same story rules as Marlowe Bay; per-city currency (₹, ¥, €), slider range
+and map backdrop; Reset restores the *current* city. Stories were found by a scratch generator, frozen as constants, and independently re-verified
+(Python script extended to all four cities, shown to fail on a tampered number). Screenshots exposed two layout defects (labels colliding because
+all markers were treated as one box size; hotels pushed into Lisbon's sea), both fixed. No engine change.
+
 ## Plan changes vs. the original 5-step plan
 - Step 4 gained the table and a landing/Load screen earlier than planned (spec: "load the city in one action").
 - Timeline lives in `src/engine/timeline.ts` (pure) rather than only in a component, so it is unit-tested.
 - Added axe-core and a headless-browser screenshot pass that the plan did not list.
+- After step 5, work extended the plan (redesign, theme switcher, simplified settings, motion, map upgrade, demo cities); none of it touched `src/engine/`.
 
 ## Prompt-design takeaways
 Give the assistant the invariants as a checklist (they became `CLAUDE.md`), forbid shortcuts that would defeat

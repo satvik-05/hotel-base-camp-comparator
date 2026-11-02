@@ -64,4 +64,55 @@ describe('reducer', () => {
     const s = reducer(loaded(), { type: 'INSPECT', hotelId: 'H_CLOCKGR' }) as LoadedState;
     expect(deriveView(s).atItsCost).toEqual({ budget: 980, rank: 1, recommendedId: 'H_CLOCKGR' });
   });
+
+  describe('cities', () => {
+    const load = (cityId?: string) => reducer(initialState, { type: 'LOAD', cityId }) as LoadedState;
+
+    it('LOAD without a city loads Marlowe Bay; with a city loads that city\'s original trip', () => {
+      expect(load()).toMatchObject({ cityId: 'marlowe', budgetInput: '900' });
+      expect(load('hyderabad')).toMatchObject({ cityId: 'hyderabad', budgetInput: '20500', inspectedId: 'H_BANJARA' });
+      expect(load('kyoto')).toMatchObject({ cityId: 'kyoto', budgetInput: '56000' });
+      expect(load('lisbon')).toMatchObject({ cityId: 'lisbon', budgetInput: '790' });
+    });
+
+    it('an unknown city id falls back to Marlowe Bay and records the resolved id', () => {
+      expect(load('atlantis').cityId).toBe('marlowe');
+    });
+
+    it('edits keep the city; RESET restores that city\'s original, not Marlowe\'s', () => {
+      let s = load('hyderabad');
+      const original = freshLoadedState('hyderabad');
+      s = reducer(s, { type: 'SET_BUDGET', value: '12345' }) as LoadedState;
+      s = reducer(s, { type: 'SET_IMPORTANCE', placeId: 'CHARMINAR', value: '1' }) as LoadedState;
+      s = reducer(s, { type: 'INSPECT', hotelId: 'H_AIRPORT' }) as LoadedState;
+      expect(s.cityId).toBe('hyderabad');
+      expect(deriveView(s).isOriginal).toBe(false);
+      const back = reducer(s, { type: 'RESET' }) as LoadedState;
+      expect(back).toEqual(original);
+      expect(deriveView(back).isOriginal).toBe(true);
+    });
+
+    it('switching city discards edits from the previous city', () => {
+      let s = load('marlowe');
+      s = reducer(s, { type: 'SET_BUDGET', value: '980' }) as LoadedState;
+      const next = reducer(s, { type: 'LOAD', cityId: 'kyoto' }) as LoadedState;
+      expect(next).toEqual(freshLoadedState('kyoto'));
+    });
+
+    it('rejects a hotel or place from another city', () => {
+      const s = load('hyderabad');
+      expect(reducer(s, { type: 'INSPECT', hotelId: 'H_LANTERN' })).toBe(s);
+      expect(reducer(s, { type: 'SET_IMPORTANCE', placeId: 'RIVER', value: '5' })).toBe(s);
+    });
+
+    it('every city starts as an original, valid, recommending trip', () => {
+      for (const id of ['marlowe', 'hyderabad', 'kyoto', 'lisbon']) {
+        const v = deriveView(load(id));
+        expect(v.isOriginal).toBe(true);
+        expect(v.result.status === 'ok' && v.result.outcome).toBe('RECOMMENDED');
+        expect(v.city.id).toBe(id);
+      }
+    });
+  });
 });
+

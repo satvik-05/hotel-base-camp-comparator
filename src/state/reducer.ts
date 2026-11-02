@@ -1,5 +1,5 @@
 import type { Scenario } from '../engine';
-import { createMainScenario, DEFAULT_INSPECTED_HOTEL_ID, MAIN_BUDGET } from '../data/mainCity';
+import { DEFAULT_CITY_ID, getCity } from '../data/cities';
 
 /** Strict whole-number parser: anything that is not an optional minus plus digits becomes NaN. */
 export function parseWhole(raw: string): number {
@@ -8,6 +8,8 @@ export function parseWhole(raw: string): number {
 
 export interface LoadedState {
   readonly phase: 'loaded';
+  /** Which demo city this trip is in; Reset restores this city's original. */
+  readonly cityId: string;
   /** The original city as loaded (original importances); never edited in place. */
   readonly scenario: Scenario;
   /** Raw field text, so invalid entries stay visible instead of being silently coerced. */
@@ -20,7 +22,7 @@ export interface LoadedState {
 export type ComparatorState = { readonly phase: 'empty' } | LoadedState;
 
 export type Action =
-  | { type: 'LOAD' }
+  | { type: 'LOAD'; cityId?: string }
   | { type: 'RESET' }
   | { type: 'SET_BUDGET'; value: string }
   | { type: 'SET_IMPORTANCE'; placeId: string; value: string }
@@ -28,20 +30,23 @@ export type Action =
 
 export const initialState: ComparatorState = { phase: 'empty' };
 
-/** Fresh materialization of the main trip: original data, budget, importances, inspected hotel. */
-export function freshLoadedState(): LoadedState {
-  const scenario = createMainScenario();
+/** Fresh materialization of a city's trip: original data, budget, importances, inspected hotel. */
+export function freshLoadedState(cityId: string = DEFAULT_CITY_ID): LoadedState {
+  const city = getCity(cityId);
+  const scenario = city.createScenario();
   return {
     phase: 'loaded',
+    cityId: city.id,
     scenario,
-    budgetInput: String(MAIN_BUDGET),
+    budgetInput: String(city.budget),
     importanceInputs: Object.fromEntries(scenario.places.map((p) => [p.id, String(p.importance)])),
-    inspectedId: DEFAULT_INSPECTED_HOTEL_ID,
+    inspectedId: city.defaultInspectedHotelId,
   };
 }
 
 export function reducer(state: ComparatorState, action: Action): ComparatorState {
-  if (action.type === 'LOAD' || action.type === 'RESET') return freshLoadedState();
+  if (action.type === 'LOAD') return freshLoadedState(action.cityId);
+  if (action.type === 'RESET') return freshLoadedState(state.phase === 'loaded' ? state.cityId : DEFAULT_CITY_ID);
   if (state.phase !== 'loaded') return state;
   switch (action.type) {
     case 'SET_BUDGET':

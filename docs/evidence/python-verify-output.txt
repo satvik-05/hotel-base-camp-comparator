@@ -1,3 +1,6 @@
+hyderabad: budget 20500, importance total 44, recommended H_BANJARA (2723), most accessible H_ABIDS costs 30000 (over by 9500)
+kyoto: budget 56000, importance total 47, recommended H_FUSHIMI (2444), most accessible H_GION costs 111000 (over by 55000)
+lisbon: budget 790, importance total 47, recommended H_AVENIDA (1864), most accessible H_BAIRRO costs 1300 (over by 510)
 importance total 41; rank order ['H_LANTERN', 'H_RIVERST', 'H_WILLOW', 'H_TRAMDEP', 'H_MOSSLN', 'H_DOCKS']
 most accessible H_CLOCKGR total 1096 cost 980 (over by 80)
 RIVER flips: [('RIVER', 5)]

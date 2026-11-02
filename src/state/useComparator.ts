@@ -9,7 +9,8 @@ export function useComparator() {
   return {
     state,
     view,
-    load: useCallback(() => dispatch({ type: 'LOAD' }), []),
+    /** Loads (or switches to) a city; omit the id for the default city. Resets budget, importances and inspection. */
+    load: useCallback((cityId?: string) => dispatch({ type: 'LOAD', cityId }), []),
     reset: useCallback(() => dispatch({ type: 'RESET' }), []),
     setBudget: useCallback((value: string) => dispatch({ type: 'SET_BUDGET', value }), []),
     setImportance: useCallback(

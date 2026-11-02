@@ -1,7 +1,7 @@
 import type { Comparator } from '../state/useComparator';
 import type { LoadedState } from '../state/reducer';
 import type { ComparatorView } from '../state/derive';
-import { money, num } from './format';
+import { makeMoney, num } from './format';
 
 interface Props {
   state: LoadedState;
@@ -14,6 +14,7 @@ interface Props {
 
 /** Accessible hotel-by-place equivalent of the map: supplied times, editable importance, contributions. */
 export function TravelTable({ state, view, hoverPlaceId, onHoverPlace, setImportance, onInspect }: Props) {
+  const money = makeMoney(view.city.currency);
   const { scenario, result, inspected } = view;
   const evals = new Map(result.status === 'ok' ? result.evaluations.map((e) => [e.hotelId, e]) : []);
 

@@ -2,7 +2,7 @@ import { Milestone } from 'lucide-react';
 import { useMemo } from 'react';
 import { budgetTimeline } from '../engine/timeline';
 import type { ComparatorView } from '../state/derive';
-import { money } from './format';
+import { makeMoney } from './format';
 
 const PALETTE = ['bg-zinc-300', 'bg-emerald-500', 'bg-sky-500', 'bg-violet-500', 'bg-amber-500', 'bg-teal-500', 'bg-pink-500', 'bg-indigo-500'];
 
@@ -13,12 +13,14 @@ interface Props {
 
 /** Compact "budget -> recommendation" ladder, derived by the same engine as the main result. */
 export function BudgetTimeline({ view, onPickBudget }: Props) {
+  const money = makeMoney(view.city.currency);
   const { scenario } = view;
   const segments = useMemo(() => budgetTimeline(scenario), [scenario]);
   if (segments.length === 0) return null;
 
   const names = new Map(scenario.hotels.map((h) => [h.id, h.name]));
-  const axisMax = Math.max(...scenario.hotels.map((h) => h.stayCost)) + 100;
+  const topCost = Math.max(...scenario.hotels.map((h) => h.stayCost));
+  const axisMax = topCost + Math.round(topCost * 0.08);
   const current = Number.isFinite(view.budget) ? view.budget : null;
   const activeIdx = current === null ? -1 : segments.findIndex((s) => current >= s.from && (s.to === null || current <= s.to));
   const label = (id: string | null) => (id ? names.get(id)! : 'NO_AFFORDABLE_HOTEL');

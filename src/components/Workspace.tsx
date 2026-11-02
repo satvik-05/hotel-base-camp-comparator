@@ -4,6 +4,7 @@ import type { ComparatorView } from '../state/derive';
 import type { LoadedState } from '../state/reducer';
 import { BudgetTimeline } from './BudgetTimeline';
 import { CityMap } from './CityMap';
+import { CityPicker } from './CityPicker';
 import { Controls } from './Controls';
 import { ExplanationPanel } from './ExplanationPanel';
 import { HotelRanking } from './HotelRanking';
@@ -13,7 +14,7 @@ import { TravelTable } from './TravelTable';
 interface Props {
   state: LoadedState;
   view: ComparatorView;
-  actions: Pick<Comparator, 'setBudget' | 'setImportance' | 'reset' | 'inspect'>;
+  actions: Pick<Comparator, 'load' | 'setBudget' | 'setImportance' | 'reset' | 'inspect'>;
 }
 
 export function Workspace({ state, view, actions }: Props) {
@@ -25,6 +26,7 @@ export function Workspace({ state, view, actions }: Props) {
 
   return (
     <div className="reveal-stack space-y-5">
+      <CityPicker cityId={state.cityId} onChange={actions.load} />
       <Controls state={state} view={view} setBudget={actions.setBudget} reset={actions.reset} />
       <div key={bannerKey} className={bannerKey === 'start' ? undefined : 'anim-pop'}>
         <StatusBanner view={view} />
