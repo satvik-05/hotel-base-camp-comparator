@@ -22,7 +22,7 @@ export function Workspace({ state, view, actions }: Props) {
 
   return (
     <div className="space-y-5">
-      <Controls state={state} view={view} setBudget={actions.setBudget} setImportance={actions.setImportance} reset={actions.reset} />
+      <Controls state={state} view={view} setBudget={actions.setBudget} reset={actions.reset} />
       <StatusBanner view={view} />
       <BudgetTimeline view={view} onPickBudget={(b) => actions.setBudget(String(b))} />
       <div className="grid gap-5 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">

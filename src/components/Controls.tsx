@@ -1,5 +1,4 @@
-import { RotateCcw, Wallet, Waves } from 'lucide-react';
-import { WHAT_IF } from '../data/mainCity';
+import { RotateCcw, Wallet } from 'lucide-react';
 import type { Comparator } from '../state/useComparator';
 import type { LoadedState } from '../state/reducer';
 import type { ComparatorView } from '../state/derive';
@@ -11,13 +10,10 @@ interface Props {
   state: LoadedState;
   view: ComparatorView;
   setBudget: Comparator['setBudget'];
-  setImportance: Comparator['setImportance'];
   reset: Comparator['reset'];
 }
 
-export function Controls({ state, view, setBudget, setImportance, reset }: Props) {
-  const riverPlace = state.scenario.places.find((p) => p.id === WHAT_IF.placeId)!;
-  const riverRaw = state.importanceInputs[riverPlace.id] ?? '';
+export function Controls({ state, view, setBudget, reset }: Props) {
   const sliderValue = Number.isFinite(view.budget) ? Math.min(Math.max(view.budget, 0), SLIDER_MAX) : 0;
   const unlock = view.mostAccessible && !view.mostAccessible.affordable ? view.mostAccessible : null;
 
@@ -36,7 +32,7 @@ export function Controls({ state, view, setBudget, setImportance, reset }: Props
         </button>
       </div>
 
-      <div className="mt-4 grid gap-6 md:grid-cols-2">
+      <div className="mt-4">
         <div>
           <label htmlFor="budget" className="flex items-center gap-1.5 text-sm font-medium text-zinc-800">
             <Wallet className="size-4 text-zinc-500" aria-hidden /> Whole-stay hotel budget
@@ -92,40 +88,6 @@ export function Controls({ state, view, setBudget, setImportance, reset }: Props
             </button>
           )}
         </div>
-
-        <fieldset>
-          <legend className="flex items-center gap-1.5 text-sm font-medium text-zinc-800">
-            <Waves className="size-4 text-sky-600" aria-hidden /> What if “{riverPlace.name}” mattered more?
-          </legend>
-          <div role="radiogroup" aria-label={`${riverPlace.name} importance`} className="mt-2 inline-flex gap-0.5 rounded-lg bg-zinc-500/10 p-0.5 ring-1 ring-zinc-500/20">
-            {[1, 2, 3, 4, 5].map((v) => {
-              const selected = riverRaw === String(v);
-              return (
-                <button
-                  key={v}
-                  type="button"
-                  role="radio"
-                  aria-checked={selected}
-                  onClick={() => setImportance(riverPlace.id, String(v))}
-                  className={`w-11 rounded-md py-2 text-sm font-semibold tabular-nums transition duration-150 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-indigo-600 ${
-                    selected ? 'bg-indigo-600 text-white shadow-[0_0_14px_-3px] shadow-indigo-500/70' : 'text-zinc-700 hover:bg-surface hover:shadow-sm'
-                  }`}
-                >
-                  {v}
-                </button>
-              );
-            })}
-          </div>
-          <p className="mt-1.5 text-sm text-zinc-500">
-            Original importance {riverPlace.importance}. Try {WHAT_IF.importance} to see the recommendation change. Every
-            place can be edited in the table below.
-          </p>
-          {view.importanceErrors[riverPlace.id] && (
-            <p role="alert" className="mt-1 text-sm font-medium text-rose-700">
-              {view.importanceErrors[riverPlace.id]}
-            </p>
-          )}
-        </fieldset>
       </div>
 
       <p className="mt-4 text-xs text-zinc-500" aria-live="polite">

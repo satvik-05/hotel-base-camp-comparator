@@ -48,9 +48,11 @@ describe('App smoke', () => {
     expect(screen.queryByText(/Recommended base camp/)).toBeNull();
   });
 
-  it('Riverside Walk what-if changes the recommendation and Reset restores it', async () => {
+  it('raising Riverside Walk importance in the table changes the recommendation and Reset restores it', async () => {
     const user = await loadApp();
-    await user.click(screen.getByRole('radio', { name: '5' }));
+    const river = screen.getByLabelText('Importance for Riverside Walk');
+    await user.clear(river);
+    await user.type(river, '5');
     expect(screen.getByText(/Recommended base camp: Riverside Rest/)).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /reset trip/i }));
     expect(screen.getByText(/Recommended base camp: Lamplighter Lodge/)).toBeInTheDocument();
