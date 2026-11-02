@@ -9,7 +9,7 @@ export default function App() {
   const theme = useTheme();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-100 to-zinc-50 text-zinc-900 antialiased">
+    <div className="app-glow min-h-screen bg-gradient-to-b from-zinc-100 to-zinc-50 text-zinc-900 antialiased">
       <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-surface/70 backdrop-blur-md supports-[backdrop-filter]:bg-surface/60">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6">
           <span className="flex size-9 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-[0_0_18px_-4px] shadow-indigo-500/70 ring-1 ring-white/20" aria-hidden>

@@ -1,7 +1,9 @@
+import { useRef } from 'react';
 import { Ban, Hotel as HotelIcon, Star } from 'lucide-react';
 import type { HotelEvaluation } from '../engine';
 import type { ComparatorView } from '../state/derive';
 import { money, num } from './format';
+import { useFlip } from './useFlip';
 
 interface Props {
   view: ComparatorView;
@@ -72,6 +74,8 @@ const rowStyle = (e: HotelEvaluation, selected: boolean): string => {
 
 export function HotelRanking({ view, inspectedId, onInspect }: Props) {
   const { result } = view;
+  const listRef = useRef<HTMLDivElement>(null);
+  useFlip(listRef, result.status === 'ok' ? result.evaluations.map((e) => `${e.hotelId}:${e.rank ?? 'x'}`).join('|') : 'invalid');
 
   if (result.status === 'invalid') {
     return (
@@ -97,7 +101,7 @@ export function HotelRanking({ view, inspectedId, onInspect }: Props) {
     .sort((a, b) => a.shortfall - b.shortfall || (a.hotelId < b.hotelId ? -1 : 1));
 
   const renderItem = (e: HotelEvaluation, badge: React.ReactNode) => (
-    <li key={e.hotelId}>
+    <li key={e.hotelId} data-flip-id={e.hotelId}>
       <button
         type="button"
         onClick={() => onInspect(e.hotelId)}
@@ -116,6 +120,7 @@ export function HotelRanking({ view, inspectedId, onInspect }: Props) {
 
   return (
     <section aria-labelledby="ranking-title" className="card p-5">
+      <div ref={listRef}>
       <div className="flex items-baseline justify-between">
         <h2 id="ranking-title" className="text-base font-semibold text-zinc-900">
           Ranked hotels
@@ -139,6 +144,7 @@ export function HotelRanking({ view, inspectedId, onInspect }: Props) {
           </ul>
         </>
       )}
+      </div>
     </section>
   );
 }

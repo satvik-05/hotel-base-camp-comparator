@@ -79,4 +79,24 @@ describe('App smoke', () => {
     expect(screen.getByText(/Recommended base camp: Lamplighter Lodge/)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Why Dockyard Dorms?' })).toBeInTheDocument();
   });
+
+  it('Copy summary puts the recommendation and ranking on the clipboard', async () => {
+    const user = await loadApp();
+    const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue();
+    await user.click(screen.getByRole('button', { name: /copy summary/i }));
+    expect(writeText).toHaveBeenCalledTimes(1);
+    const text = writeText.mock.calls[0]![0];
+    expect(text).toContain('Recommended base camp: Lamplighter Lodge ($760) at a $900 budget.');
+    expect(text).toContain('#2 Riverside Rest');
+    expect(text).not.toContain('Clocktower Grand');
+    expect(await screen.findByText('Copied')).toBeInTheDocument();
+  });
+
+  it('re-keys the map links when a different hotel is inspected so they redraw', async () => {
+    const user = await loadApp();
+    const before = document.querySelector('[data-testid="link-RIVER"]');
+    await user.click(screen.getByTestId('hotel-H_DOCKS'));
+    expect(document.querySelector('[data-testid="link-RIVER"]')).not.toBe(before);
+    expect(document.querySelectorAll('[data-testid^="link-"]')).toHaveLength(15);
+  });
 });

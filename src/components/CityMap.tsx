@@ -57,8 +57,10 @@ export function CityMap({ view, hoverPlaceId, onHoverPlace, inspectedId, onInspe
               const active = hoverPlaceId === p.id;
               return (
                 <line
-                  key={p.id}
+                  key={`${inspected.hotelId}:${p.id}`}
                   data-testid={`link-${p.id}`}
+                  className="map-link"
+                  pathLength={1}
                   x1={from.x}
                   y1={from.y}
                   x2={to.x}
@@ -67,7 +69,6 @@ export function CityMap({ view, hoverPlaceId, onHoverPlace, inspectedId, onInspe
                   strokeOpacity={active ? 1 : 0.55}
                   strokeWidth={1.2 + (c.value / maxValue) * 4.5}
                   strokeLinecap="round"
-                  strokeDasharray="1 0"
                 />
               );
             })}
@@ -132,6 +133,7 @@ export function CityMap({ view, hoverPlaceId, onHoverPlace, inspectedId, onInspe
               }}
               className="cursor-pointer outline-none focus-visible:[&>rect:first-child]:stroke-indigo-600"
             >
+              {e?.status === 'RECOMMENDED' && <rect className="pulse-ring" x={pt.x - 18} y={pt.y - 14} width="36" height="28" rx="7" fill="none" stroke="#10b981" strokeWidth="2" aria-hidden />}
               <rect x={pt.x - 18} y={pt.y - 14} width="36" height="28" rx="7" fill="none" stroke={selected ? '#4f46e5' : 'transparent'} strokeWidth="3" transform="scale(1)" />
               <rect x={pt.x - 15} y={pt.y - 11} width="30" height="22" rx="5" fill={st.fill} stroke={st.stroke} strokeWidth="2" strokeDasharray={e?.status === 'OVER_BUDGET' ? '4 3' : undefined} />
               <text x={pt.x} y={pt.y + 5} textAnchor="middle" fontSize="13" fontWeight="800" fill={st.text}>

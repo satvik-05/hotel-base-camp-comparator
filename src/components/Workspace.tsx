@@ -20,10 +20,15 @@ export function Workspace({ state, view, actions }: Props) {
   // Presentation-only hover link between map markers and table rows.
   const [hoverPlaceId, setHoverPlaceId] = useState<string | null>(null);
 
+  const { result } = view;
+  const bannerKey = result.status === 'invalid' ? 'invalid' : `${result.outcome}:${result.recommended?.hotelId ?? '-'}`;
+
   return (
-    <div className="space-y-5">
+    <div className="reveal-stack space-y-5">
       <Controls state={state} view={view} setBudget={actions.setBudget} reset={actions.reset} />
-      <StatusBanner view={view} />
+      <div key={bannerKey} className={bannerKey === 'start' ? undefined : 'anim-pop'}>
+        <StatusBanner view={view} />
+      </div>
       <BudgetTimeline view={view} onPickBudget={(b) => actions.setBudget(String(b))} />
       <div className="grid gap-5 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
         <div className="space-y-5">

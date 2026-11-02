@@ -18,7 +18,7 @@ export function ThemeSwitcher({ pref, onChange }: Props) {
     const i = THEME_PREFS.indexOf(from);
     const next = THEME_PREFS[(i + delta + THEME_PREFS.length) % THEME_PREFS.length]!;
     onChange(next);
-    requestAnimationFrame(() => document.getElementById(`theme-${next}`)?.focus());
+    document.getElementById(`theme-${next}`)?.focus();
   };
 
   return (
