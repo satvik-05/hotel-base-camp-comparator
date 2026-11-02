@@ -12,7 +12,7 @@ recommends the most accessible hotel you can afford, and explains why.
 | **Lisbon** | € | Belém Tower, São Jorge Castle, Alfama and more |
 
 In the three real-world cities the place names are real landmarks, but **the hotels, prices and travel times are invented and
-approximate**. They are not real quotes or live traffic, and the app says so.
+approximate**. They are not real quotes or live traffic, and the app says so .
 
 Built for the Cisco interview problem *SPR26_D2_P03*. Everything runs in the browser: no accounts, no network
 calls, no external services.
